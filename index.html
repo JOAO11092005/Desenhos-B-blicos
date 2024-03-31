@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenhos Bíblicos</title>
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/responsive.css">
+    <link rel="stylesheet" href="./src/css/celular.css">
+    <meta name="description" content="Asista Desenhos Bíblicos online e gratuito."/>
+    <meta property="og:image" content="https://i.pinimg.com/564x/b3/f7/b1/b3f7b1a323e42768941acbd3cb38db98.jpg" />
+    <link rel="shortcut icon" href="https://i.pinimg.com/564x/b3/f7/b1/b3f7b1a323e42768941acbd3cb38db98.jpg" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="./index.html">Desenhos Bíblicos</a></div>
+        <!-- <input type="text" id="pesquisaInput" placeholder="Pesquise"> -->
+        <input type="checkbox" id="hamburguer-menu">
+        <div class="hamburger">
+            <label for="hamburguer-menu">
+                <p class="menu-hamburguer"></p>
+            </label>
+        </div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><button>Novo Testamento</button></li>
+                    <li><button>Velho Testamento</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- <div class="menu">
+        <nav>
+            <ul>
+                <li><button>Novo Testamento</button></li>
+                <li><button>Velho Testamento</button></li>
+            </ul>
+        </nav>
+    </div> -->
+    </div>
+    <main class="desenhos-biblicos">
+        <!-- Aqui ficará o conteúdo dos desenhos bíblicos -->
+    </main>
+    <div class="player-overlay" id="playerOverlay">
+        <div class="player-container">
+            <iframe id="videoPlayer" src="https://www.dailymotion.com/embed/video/x6bcnbl?autoplay=1" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            <button id="closeButton">Fechar</button>
+        </div>
+    </div>
+
+    
+    <footer>
+        <p>© 2024</p>
+        <p>Desenvolvido por Joao Paulo</p>
+        <p>Conteúdo disponibilizado por <a href="https://www.youtube.com/@nutricaogospel270">Nutrição Gospel</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('pesquisaInput').addEventListener('input', function() {
+            var termoPesquisa = this.value.toLowerCase();
+            var desenhos = document.querySelectorAll('.desenhos-biblicos .desenho');
+
+            desenhos.forEach(function(desenho) {
+                var titulo = desenho.querySelector('.titulo').textContent.toLowerCase();
+                if (titulo.includes(termoPesquisa)) {
+                    desenho.style.display = 'block';
+                } else {
+                    desenho.style.display = 'none';
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+    const novoTestamentoButton = document.querySelector('nav ul li:nth-child(1)');
+    const velhoTestamentoButton = document.querySelector('nav ul li:nth-child(2)');
+    const novoTestamento = document.getElementById('novoTestamento');
+    const velhoTestamento = document.getElementById('velhoTestamento');
+
+    novoTestamentoButton.addEventListener('click', function() {
+        novoTestamento.style.display = 'block';
+        velhoTestamento.style.display = 'none';
+    });
+
+    velhoTestamentoButton.addEventListener('click', function() {
+        novoTestamento.style.display = 'none';
+        velhoTestamento.style.display = 'block';
+    });
+
+    function carregarDesenhos() {
+        fetch('./src/desenhos/desenhos.json')
+            .then(response => response.json())
+            .then(data => mostrarDesenhos(data.desenhos_biblicos))
+            .catch(error => console.error('Erro ao carregar os dados:', error));
+    }
+
+    function mostrarDesenhos(desenhos) {
+        const novoTestamentoContainer = document.getElementById('novoTestamento');
+        const velhoTestamentoContainer = document.getElementById('velhoTestamento');
+
+        desenhos.forEach((desenho, index) => {
+            const div = document.createElement('div');
+            div.classList.add('episodio');
+            div.setAttribute('id', `episodio_${index}`);
+
+            const img = document.createElement('img');
+            img.src = desenho.foto;
+            img.alt = desenho.nome;
+            div.appendChild(img);
+
+            const nome = document.createElement('p');
+            nome.textContent = desenho.nome;
+            div.appendChild(nome);
+
+            div.dataset.video = desenho.video_link;
+            
+            if (desenho.nome.toLowerCase().includes('jesus') || desenho.nome.toLowerCase().includes('parábolas') || desenho.nome.toLowerCase().includes('joão')) {
+                novoTestamentoContainer.appendChild(div);
+            } else {
+                velhoTestamentoContainer.appendChild(div);
+            }
+        });
+       
+        const desenhos = document.querySelectorAll('.episodio');
+
+        desenhos.forEach(function(desenho) {
+            desenho.addEventListener('click', function(event) {
+                const videoLink = this.dataset.video;
+                const videoPlayer = document.getElementById('videoPlayer');
+                const playerOverlay = document.getElementById('playerOverlay');
+
+                videoPlayer.src = videoLink;
+                playerOverlay.style.display = 'block';
+            });
+        });
+    }
+
+    carregarDesenhos();
+
+    const closeButton = document.getElementById('closeButton');
+    closeButton.addEventListener('click', function() {
+        const playerOverlay = document.getElementById('playerOverlay');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        playerOverlay.style.display = 'none';
+        videoPlayer.src = '';
+    });
+
+    document.getElementById('pesquisaInput').addEventListener('input', function() {
+        const termoPesquisa = this.value.toLowerCase();
+        const desenhos = document.querySelectorAll('.desenhos-biblicos .episodio, .desenhos-novo-testamento .episodio, .desenhos-velo-testamento .episodio');
+
+        desenhos.forEach(function(desenho) {
+            const titulo = desenho.querySelector('p').textContent.toLowerCase();
+            if (titulo.includes(termoPesquisa)) {
+                desenho.style.display = 'block';
+            } else {
+                desenho.style.display = 'none';
+            }
+        });
+    });
+});
+
+
+    </script>
+    <script src="./src/js/index.js"></script>
+</body>
+</html>

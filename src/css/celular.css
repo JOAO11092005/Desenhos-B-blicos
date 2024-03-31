@@ -1,0 +1,189 @@
+@media (max-width: 500px){
+    @font-face {
+        font-family: "fonte-do-site";
+        src: url(../fonts/Poppins/Poppins-Bold.ttf);
+    }
+    body{
+      background: url(https://m.media-amazon.com/images/S/pv-target-images/c265e399c5ac5846d9d6b13299681eee4919290cd329ffcfd37eae799978a18b.jpg)center center no-repeat;
+      background-size: cover;
+      height: 100vh;
+    }
+    header{
+        
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 20px;
+        background-color: #000000e3;
+        color: white;
+        height: 90px;
+       
+        width: 100%;
+    }
+    header .hamburger{
+        display: block;
+    }
+    header nav ul{
+        display: flex;
+        gap: 60px;
+    }
+    header input{
+        width: 700px;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 18px;
+        color: black;
+    }
+    
+    main{
+        height: 670px;
+        /* overflow-y: auto; */
+        display: grid;
+        grid-template-columns: repeat(1, auto);
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.204);
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    main .episodio{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    main .episodio:hover{
+        border: 1px solid rgba(7, 21, 221, 0.618);
+        padding: 10px;
+        transition: 0.5s;
+        background-color: rgb(67, 61, 61);
+    }
+    main .episodio img{
+        width: 100%;
+        height: 200px;
+    }
+    .player-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+    
+    .player-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.91);
+        padding: 30px;
+        padding: 0px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .player-container iframe {
+        width: 100%; /* Alteração aqui */
+        height: 500px; /* Você pode ajustar a altura conforme necessário */
+    }
+    
+    #closeButton {
+        position: absolute;
+        top: 10px;
+        width: 300px;
+        right: 30px;
+        padding: 5px 10px;
+        background-color: #ff0000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    header .hamburger label .menu-hamburguer{
+        width: 30px;
+        height: 2px;
+        background-color: white;
+        transition: 0.5s;
+     }
+     header .hamburger label .menu-hamburguer:after{
+         content: '';
+         width: 30px;
+         height: 2px;
+         background-color: white;
+         position: absolute;
+         bottom: 10px;
+         transition: 0.5s;
+     }
+     header .hamburger label .menu-hamburguer:before{
+         content: '';
+         width: 30px;
+         height: 2px;
+         background-color: white;
+         position: absolute;
+         top: 10px;
+         transition: 0.5s;
+     }
+     header .hamburger label{
+         position: relative;
+     }
+     header .hamburger{
+      position: relative;
+     }
+     input:checked ~.hamburger label .menu-hamburguer{
+         transform: rotate(45deg);
+         transform: 0.5s;
+     }
+     input:checked ~.hamburger label .menu-hamburguer:after{
+         transform: rotate(90deg);
+         bottom: 0;
+         transform: 0.5s;
+     }
+     input:checked ~.hamburger label .menu-hamburguer:before{
+         transform: rotate(90deg);
+         top: 0;
+         transition: 0.5s;
+     }
+     #hamburguer-menu{
+         display: none;
+     }
+     .menu{
+         display: none;
+     }
+     
+     input:checked ~.menu{
+        display: block;
+        position: absolute;
+        margin-top: 100px;
+        background-color: black;
+        
+     }
+    .menu-ativo{
+        display: none;
+    }
+    footer{
+        color: white;
+        width: 100%;
+        height: 300px;
+        
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+        bottom: 0;
+        background-color: #000000f6;
+    }
+}
